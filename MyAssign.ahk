@@ -25,6 +25,51 @@
 ; 2025/04/11 まれに半角英数になって戻せなくなる問題を修正、誤字修正
 ; 2025/04/14 Win＋変換、Win＋カタカナでも半角英数になってしまう問題を修正
 ;            ただし現在、Shift＋カタカナで全角カタカナになってしまう問題が回避できていない
+; 2025/05/08 無変換＋；（日付入力）のエクセル除外が効いていなかったのを修正
+;            Shift＋Ctrl＋P（パスワード生成）のVSCode除外が効いていなかったのを修正
+;--------------------------------------------------------
+; キーアサイン一覧 
+; 無変換+v　		バージョン表示
+; 無変換		IME を OFF
+; 変換			IME を ON
+; カタカナ		IME を ON
+; Ctrl+;		日付入力（yyyy/mm/dd形式）※エクセルを除く
+; Ctrl+Shift+;		日付入力（yyyymmdd形式）※エクセルを除く
+; Ctrl+Shift+V	書式なしペースト　※エクセルのみ
+; Ctrl+1（フルキー）	図形の書式　※PowerPointのみ
+; 
+; 左ALT+h		左カーソル移動 ※シフト併用で選択
+; 無変換+h		左カーソル移動 ※シフト併用で選択
+; 
+; 左ALT+j		下カーソル移動 ※シフト併用で選択
+; 無変換+j		下カーソル移動 ※シフト併用で選択
+; 
+; 左ALT+k		上カーソル移動 ※シフト併用で選択
+; 無変換+k		上カーソル移動 ※シフト併用で選択
+; 
+; 左ALT+l		右カーソル移動 ※シフト併用で選択
+; 無変換+l		右カーソル移動 ※シフト併用で選択
+; 
+; 左ALT+u		PageDown
+; 無変換+u		PageDown
+; 
+; 左ALT+i		PageUp
+; 無変換+i		PageUp
+; 
+; 左ALT+y		Home
+; 無変換+y		Home
+; 
+; 左ALT+o		End
+; 無変換+o		End
+; 
+; Shift+Ctrl+p		パスワード生成 ※VSCodeを除く
+; 
+; 無変換+t		TAB文字をペースト
+; 
+; 無変換+m		スクロールダウン
+; 無変換+,		スクロールアップ
+; 無変換+n		左スクロール
+; 無変換+.		右スクロール
 ;--------------------------------------------------------
 
 #Include IMEv2.ahk
@@ -147,7 +192,7 @@
 ;無変換+v→バージョン表示
 vk1D & v::
 {
-	MsgBox ("MyAssign last update 2025/04/14")
+	MsgBox ("MyAssign last update 2025/05/08")
 	return
 }
 
@@ -181,7 +226,8 @@ vkF2::
 ;  日付の入力
 ;******************************************************************************
 ; Excelでの動作を除外する
-#HotIf not WinActive("ahk_exe EXCEL.EXE") ; Excel以外がアクティブなとき
+;#HotIf not WinActive("ahk_exe EXCEL.EXE") ; Excel以外がアクティブなとき
+#HotIf WinGetProcessName("A") != "EXCEL.EXE"
 	;Ctrl+;で日付入力(yyyy/mm/dd形式)
 	^vkBB::
 	{
@@ -359,7 +405,8 @@ vk1D & o::
 ; パスワード自動生成
 ;******************************************************************************
 ; VS Code での動作を除外する
-#HotIf !WinActive("ahk_exe Code.EXE")
+;#HotIf !WinActive("ahk_exe Code.exe")
+#HotIf WinGetProcessName("A") != "Code.exe"
 	^+p::
 	{
 		Number := "23456789"
@@ -447,8 +494,3 @@ vk1D & .::
 	MouseClick "WheelRight"
 	return
 }
-
-
-
-
-
