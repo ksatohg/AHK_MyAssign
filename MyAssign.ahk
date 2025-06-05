@@ -28,6 +28,7 @@
 ; 2025/05/08 無変換＋；（日付入力）のエクセル除外が効いていなかったのを修正
 ;            Shift＋Ctrl＋P（パスワード生成）のVSCode除外が効いていなかったのを修正
 ; 2025/05/19 Shift＋カタカナで全角カタカナになってしまう問題を修正
+; 2025/06/05 CapsLockキーも無効化するようにした（Shift+CapsLockは使える）
 ;--------------------------------------------------------
 ; キーアサイン一覧 
 ; 無変換+v　		バージョン表示
@@ -193,7 +194,7 @@
 ;無変換+v→バージョン表示
 vk1D & v::
 {
-	MsgBox ("MyAssign last update 2025/05/19")
+	MsgBox ("MyAssign last update 2025/06/05")
 	return
 }
 
@@ -213,12 +214,13 @@ vkF2::
 	IME_SET(1)
 	Return
 }
-; Ctrl＋カタカナ、Win＋カタカナ、Shift＋カタカナ、Win＋変換を無効化
+; Ctrl＋カタカナ、Win＋カタカナ、Shift＋カタカナ、Win＋変換、CapsLockを無効化
 ^vkF2::
 #vkF2::
 +vkF2::
 +SC070::
 #vk1C::
+vkF0::
 {
 	Return
 }
