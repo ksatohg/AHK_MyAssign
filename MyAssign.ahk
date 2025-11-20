@@ -30,6 +30,7 @@
 ; 2025/05/19 Shift＋カタカナで全角カタカナになってしまう問題を修正
 ; 2025/06/05 CapsLockキーも無効化するようにした（Shift+CapsLockは使える）
 ; 2025/07/10 テンキーのENTERをフルキーのENTERに変換する機能を追加
+; 2025/11/20 SHIFT + CTRL + P（パスワード生成）をAntigravity上で無効化（コマンドパレット表示と重複するため）
 ;--------------------------------------------------------
 ; キーアサイン一覧 
 ; 無変換+v　		バージョン表示
@@ -198,7 +199,7 @@
 ;無変換+v→バージョン表示
 vk1D & v::
 {
-	MsgBox ("MyAssign last update 2025/07/10")
+	MsgBox ("MyAssign last update 2025/11/20")
 	return
 }
 
@@ -424,7 +425,7 @@ vk1D & o::
 ;******************************************************************************
 ; VS Code での動作を除外する
 ;#HotIf !WinActive("ahk_exe Code.exe")
-#HotIf WinGetProcessName("A") != "Code.exe"
+#HotIf WinGetProcessName("A") != "Code.exe" && WinGetProcessName("A") != "Antigravity.exe"
 	^+p::
 	{
 		Number := "23456789"
